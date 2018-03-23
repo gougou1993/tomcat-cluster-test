@@ -29,7 +29,7 @@ public class GetRemoteAddrUtil {
 		}
 		String ip = request.getHeader("X-Forwarded-For");
 		
-		if (!"".equals(ip) && !"unKnown".equalsIgnoreCase(ip)) {
+		if (null !=ip && !"".equals(ip) && !"unKnown".equalsIgnoreCase(ip)) {
 			// 多次反向代理后会有多个ip值，第一个ip才是真实ip
 			int index = ip.indexOf(",");
 			if (index != -1) {
@@ -39,7 +39,7 @@ public class GetRemoteAddrUtil {
 			}
 		}
 		ip = request.getHeader("X-Real-IP");
-		if (!"".equals(ip) && !"unKnown".equalsIgnoreCase(ip)) {
+		if (ip !=null && !"".equals(ip) && !"unKnown".equalsIgnoreCase(ip)) {
 			return ip;
 		}
 		return request.getRemoteAddr();

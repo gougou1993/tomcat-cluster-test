@@ -15,11 +15,13 @@ import javax.servlet.annotation.WebInitParam;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.zhong.util.GetRemoteAddrUtil;
+
 /**
  * Servlet Filter implementation class SecurityFilter
  */
 @WebFilter(filterName="SecurityFilter",description = "安全过滤", urlPatterns = { "/*" }, initParams = {
-		@WebInitParam(name = "allowIps", value = "192.168.1.101,180.100.254,127.0.0.1"),@WebInitParam(name="path",value="SecurityFilter")})
+		@WebInitParam(name = "allowIps", value = "192.168.1.101,180.100.254,127.0.0.1,0:0:0:0:0:0:0:1"),@WebInitParam(name="path",value="SecurityFilter")})
 public class SecurityFilter implements Filter {
 
 	private String path;
@@ -48,6 +50,8 @@ public class SecurityFilter implements Filter {
 		HttpServletResponse response = (HttpServletResponse) servletresponse;
 		
 		String remoteAddr = request.getRemoteAddr();
+		remoteAddr = GetRemoteAddrUtil.getRemoteAddr(request);
+		System.out.println("remoteAddr:"+remoteAddr);
 		
 		if (isSecurityIp(remoteAddr)) {
 			filterchain.doFilter(servletrequest, servletresponse);

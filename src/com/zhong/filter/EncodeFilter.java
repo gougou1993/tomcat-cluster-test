@@ -32,7 +32,6 @@ public class EncodeFilter implements Filter {
      */
     public EncodeFilter() {
     	encoding = null;
-    	params  = null;
     }
 
 	/**
